@@ -14,6 +14,6 @@ gcloud auth activate-service-account --key-file gcpkey.json
 mkdir Data/
 
 gsutil cp gs://victorynet-trainingdata/current_dataset.zip dataset.zip
-unzip dataset.zip -d Data/
+unzip dataset.zip -d ./
 
 chmod +x ./train.sh
