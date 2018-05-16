@@ -21,7 +21,7 @@ def init_model(model_name):
 
 def set_cfgs(task, model_cfg, env_cfg):
     print('[LocalNet / GCP] Setting Cfgs')
-
+    print(socket.gethostname())
     task['info_machine'] = socket.gethostname()
     task['info_date']  = datetime.datetime.now()
     task['info_name']  = model_cfg['model_name']

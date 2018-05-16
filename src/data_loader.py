@@ -6,6 +6,7 @@ import numpy as np
 def get_data():
     print("[LocalNet / DataLoader] Loading Training Data... ")
     path = 'Data/'  # use your path
+    
     allFiles = glob.glob(path + "/*")
     allFiles.remove("Data/_settings.json")
     frame = pd.DataFrame()
