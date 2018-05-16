@@ -9,7 +9,8 @@ link="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/"
 
 curl -L "$link""$file" | tar xz 
 CLOUDSDK_CORE_DISABLE_PROMPTS=1 ./google-cloud-sdk/install.sh
-
+exec -l $SHELL
+gcloud init
 gcloud auth activate-service-account --key-file gcpkey.json
 mkdir Data/
 
