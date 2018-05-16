@@ -2,6 +2,7 @@ from google.cloud import datastore
 # Imports the Google Cloud client library
 from google.cloud import storage
 
+import socket
 
 import keras
 import datetime
@@ -21,7 +22,7 @@ def init_model(model_name):
 def set_cfgs(task, model_cfg, env_cfg):
     print('[LocalNet / GCP] Setting Cfgs')
 
-    
+    task['info_machine'] = socket.gethostname()
     task['info_date']  = datetime.datetime.now()
     task['info_name']  = model_cfg['model_name']
     task['info_desc']  = model_cfg['model_desc']
