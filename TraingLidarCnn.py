@@ -21,9 +21,7 @@ import datetime
 print("Loading Model Settings...")
 
 
-with open("settings.yaml", 'r') as ymlfile:
-    cfg = yaml.load(ymlfile)
-pprint(cfg)
+
 
 model_name = "LocalNet " + str(cfg["model_version"]) + "_" + str(cfg["model_edit"]) + "_" + str( cfg["model_run"])
 print("MODEL: " + model_name)
