@@ -36,14 +36,10 @@ print("Backing Up Model Settings...")
 copyfile("settings.yaml", "./Graph/"+model_name+"/settings.yaml")
 
 
-datastore_client = datastore.Client('victory-net')
+
 
 # The kind for the new entity
-kind = 'Model'
-# The name/ID for the new entity
-name = model_name
-# The Cloud Datastore key for the new entity
-task_key = datastore_client.key(kind, name)
+
 
 # Prepares the new entity
 task = datastore.Entity(key=task_key)
@@ -195,7 +191,7 @@ class GCPDatastoreCheckpoint(keras.callbacks.Callback):
 
 
 
-gcp_checkpoint = GCPDatastoreCheckpoint()
+gcp_checkpoint = GCPDatastoreCheckpoint(key)
 tbCallBack = keras.callbacks.TensorBoard(
     log_dir='./Graph/'+model_name, 
     histogram_freq=5,
@@ -214,7 +210,7 @@ model.fit([x1_train, x2_train], y_train,
           verbose=1,
           shuffle=True,
           validation_data=([x1_test, x2_test], y_test),
-          callbacks=[gcp_checkpoint, checkpoint,tbCallBack])
+          callbacks=[checkpoint,gcp_checkpoint, tbCallBack])
 
 
 score = model.evaluate([x1_test, x2_test], y_test, verbose=1)

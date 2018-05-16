@@ -9,7 +9,7 @@ def get_model_config():
     model_name = "LocalNet " + str(cfg["model_version"]) + "_" + str(cfg["model_edit"]) + "_" + str( cfg["model_run"])
     print("[LocalNet / ConfigLoader] Loaded Settings for model: " + model_name)
     pprint(cfg)
-
+    cfg["model_name"] = model_name
     cfg["filepath_root"] = "./Graph/"+model_name+"/"
     cfg["filepath_weights"] = "./Graph/"+model_name+"/"+model_name+"_trained.hdf5"
 

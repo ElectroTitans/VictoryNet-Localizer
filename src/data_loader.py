@@ -7,17 +7,19 @@ def get_data():
     print("[LocalNet / DataLoader] Loading Training Data... ")
     path = 'Data/'  # use your path
     allFiles = glob.glob(path + "/*")
+    allFiles.remove("Data/_settings.json")
     frame = pd.DataFrame()
     list_ = []
     for file_ in allFiles:
         df = pd.read_csv(file_, index_col=None, header=0)
         list_.append(df)
+       
     frame = pd.concat(list_, ignore_index=True)
 
     frame_train, frame_test = train_test_split(frame, test_size=0.3)
 
     print("[LocalNet / DataLoader] Loaded Training and Testing Data: " + str(len(frame_train)) + "/" + str(len(frame_test)))
-    
+   
     return frame_train, frame_test
 
 
