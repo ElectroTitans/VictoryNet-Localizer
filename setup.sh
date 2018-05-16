@@ -1,4 +1,4 @@
-#! bash
+
 sudo apt-get install zip -y
 sudo apt-get install unzip -y
 sudo apt-get -y install python3-pip
