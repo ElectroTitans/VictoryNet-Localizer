@@ -27,13 +27,10 @@ model_name = "LocalNet " + str(cfg["model_version"]) + "_" + str(cfg["model_edit
 print("MODEL: " + model_name)
 print("Loading Env Settings...")
 
-with open('Data/_settings.json') as f:
-    env_settings = json.load(f)
-pprint(env_settings)
+
 print("Input Lidar Length: " + str(env_settings['lineNum']))
 
-if not os.path.exists( "./Graph/"+model_name+"/"):
-    os.makedirs( "./Graph/"+model_name+"/")
+
 
 print("Backing Up Model Settings...")
 copyfile("settings.yaml", "./Graph/"+model_name+"/settings.yaml")
