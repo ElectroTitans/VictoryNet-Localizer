@@ -15,9 +15,9 @@ def get_model_config():
 
     return model_name, cfg
 
-def get_env_config():
+def get_env_config(dataset):
     print("[LocalNet / ConfigLoader] Loading Env Config from 'Data/_settings.json'...")
-    with open('Data/_settings.json') as f:
+    with open('Data/'+dataset+'/_settings.json') as f:
         env_settings = json.load(f)
     print("[LocalNet / ConfigLoader] Loaded Settings for enviorment training set: " )
     pprint(env_settings)

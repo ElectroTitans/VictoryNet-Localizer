@@ -6,6 +6,8 @@ import socket
 
 import keras
 import datetime
+import zipfile
+import os
 
 datastore_client = datastore.Client('victory-net')
 
@@ -61,6 +63,28 @@ def set_dataset(task ,train_len, val_len, name="Dataset"):
     datastore_client.put(task)
     print('[LocalNet / GCP] Set Dataset Info')
 
+def validate_dataset(dataset_name):
+    print("[LocalNet / GCP] Checking for dataset: " + dataset_name)
+    download_dataset(dataset_name)
+    if not os.path.exists( "./Data/" + dataset_name):
+        print("Making Dataset Folder.")
+       
+        os.makedirs( "./Data/"+ dataset_name)
+       
+
+def download_dataset(name): 
+    print("[LocalNet / GCP] Downloading Dataset: " + name)
+    storage_client = storage.Client("victorynet")
+    # Create a bucket object for our bucket
+    bucket = storage_client.get_bucket("victorynet-trainingdata")
+    # Create a blob object from the filepath
+    blob = bucket.blob(name+".zip")
+    # Download the file to a destination
+    blob.download_to_filename(name+".zip")
+    print("Downloaded! Unzipping")
+    zip_ref = zipfile.ZipFile(name+".zip", 'r')
+    zip_ref.extractall("Data/"+name)
+    zip_ref.close()
 
 def set_status(task, status):
     print('[LocalNet / GCP] Setting Status: ' + status)

@@ -3,12 +3,12 @@ import glob
 import pandas as pd
 import numpy as np
 
-def get_data():
+def get_data(dataset):
     print("[LocalNet / DataLoader] Loading Training Data... ")
-    path = 'Data/'  # use your path
+    path = 'Data/'+dataset+"/"  # use your path
     
     allFiles = glob.glob(path + "/*")
-    allFiles.remove("Data/_settings.json")
+    allFiles.remove(path+"_settings.json")
     frame = pd.DataFrame()
     list_ = []
     for file_ in allFiles:

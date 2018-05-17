@@ -1,7 +1,8 @@
-model_version: v5
-model_edit: 02
-model_run: B
+model_version: testing
+model_edit: 01
+model_run: A
 model_desc: "More Training Data. higher filter size."
+dataset: LIDARDataGen_FRCPowerUp_01_A
 learning_rate: 0.01
 batch_size: 32
 epoch: 30

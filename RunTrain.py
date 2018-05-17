@@ -6,14 +6,19 @@ from src import gcp
 from keras.callbacks import ModelCheckpoint
 import keras
 model_name, model_cfg = get_model_config()
-env_cfg = get_env_config()
+
+gcp.validate_dataset(model_cfg['dataset'])
+
+env_cfg = get_env_config(model_cfg['dataset'])
+
+
 
 key = gcp.init_model(model_name)
 gcp.set_cfgs(key, model_cfg, env_cfg)
 
-frame_train, frame_test = get_data()
+frame_train, frame_test = get_data(model_cfg['dataset'])
 
-gcp.set_dataset(key, len(frame_train), len(frame_test), name=env_cfg['name'])
+gcp.set_dataset(key, len(frame_train), len(frame_test), name=model_cfg['dataset'])
 
 x1_train, x2_train, y_train = format_data(frame_train)
 x1_test,  x2_test,  y_test  = format_data(frame_test)
