@@ -15,7 +15,7 @@ parser.add_argument("--gpu", help="GPU Usage 0.1-1.0", type=float)
 args = parser.parse_args()
 print(args)
 cfg="settings.yaml"
-if(args.config):t
+if(args.config):
     print("Selecting Config: " + args.config)
     cfg = args.config
 if(args.gpu):
