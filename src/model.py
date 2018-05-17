@@ -1,7 +1,7 @@
 import keras
 from keras.models import load_model
 from keras.callbacks import ModelCheckpoint
-from keras.layers import Dense, Conv1D, Flatten, MaxPooling1D, Dropout, AveragePooling1D, Input, Add, Concatenate
+from keras.layers import Dense, Conv1D, Flatten, MaxPooling1D, Dropout, AveragePooling1D, Input, Add, Concatenate, SimpleRNN
 from keras.models import Model, Sequential, load_model
 from keras.optimizers import SGD
 from keras.utils import np_utils
@@ -65,9 +65,33 @@ def make_model(model_cfg, env_cfg):
                                 name='final_dense'
                             )(combined_layer)
 
+        rnn               = SimpleRNN(
+                                32, 
+                                activation='tanh', 
+                                use_bias=True, 
+                                kernel_initializer='glorot_uniform', 
+                                recurrent_initializer='orthogonal', 
+                                bias_initializer='zeros', 
+                                kernel_regularizer=None, 
+                                recurrent_regularizer=None, 
+                                bias_regularizer=None, 
+                                activity_regularizer=None, 
+                                kernel_constraint=None, 
+                                recurrent_constraint=None, 
+                                bias_constraint=None, 
+                                dropout=0.0, 
+                                recurrent_dropout=0.0, 
+                                return_sequences=False, 
+                                return_state=False, 
+                                go_backwards=False, 
+                                stateful=False, 
+                                unroll=False
+                            )(final_dense)
+
+
         coord_out         = Dense(2, 
                                 name='coord_out'
-                            )(final_dense)
+                            )(rnn)
 
         model = Model(inputs=[lidar_input, imu_input], outputs=coord_out)
 
