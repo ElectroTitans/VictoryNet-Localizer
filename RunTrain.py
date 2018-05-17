@@ -10,7 +10,7 @@ import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
 
 parser = argparse.ArgumentParser()
-parser.add_argument("config", help="Config File to use")
+parser.add_argument("--config", help="Config File to use")
 parser.add_argument("--gpu", help="GPU Usage 0.1-1.0", type=float)
 args = parser.parse_args()
 
