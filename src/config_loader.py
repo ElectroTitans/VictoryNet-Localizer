@@ -2,9 +2,9 @@ import yaml
 from pprint import pprint
 import os
 import json
-def get_model_config():
+def get_model_config(cfg):
     print("[LocalNet / ConfigLoader] Loading Model Config from 'settings.yaml'...")
-    with open("settings.yaml", 'r') as ymlfile:
+    with open(cfg, 'r') as ymlfile:
         cfg = yaml.load(ymlfile)
     model_name = "LocalNet " + str(cfg["model_version"]) + "_" + str(cfg["model_edit"]) + "_" + str( cfg["model_run"])
     print("[LocalNet / ConfigLoader] Loaded Settings for model: " + model_name)

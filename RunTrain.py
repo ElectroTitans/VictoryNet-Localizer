@@ -5,7 +5,26 @@ from src import gcp
 
 from keras.callbacks import ModelCheckpoint
 import keras
-model_name, model_cfg = get_model_config()
+import argparse
+import tensorflow as tf
+from keras.backend.tensorflow_backend import set_session
+
+parser = argparse.ArgumentParser()
+parser.add_argument("config", help="Config File to use")
+parser.add_argument("--gpu", help="GPU Usage 0.1-1.0", type=float)
+args = parser.parse_args()
+
+cfg="settings.yaml"
+if(args.config):
+    print("Selecting Config: " + args.config)
+    cfg = args.config
+if(args.gpu):
+    print("Running GPU%:  "+args.gpu)
+    config = tf.ConfigProto()
+    config.gpu_options.per_process_gpu_memory_fraction = args.gpu
+    set_session(tf.Session(config=config))
+
+model_name, model_cfg = get_model_config(cfg)
 
 gcp.validate_dataset(model_cfg['dataset'])
 
