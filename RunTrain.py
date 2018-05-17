@@ -13,9 +13,9 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--config", help="Config File to use")
 parser.add_argument("--gpu", help="GPU Usage 0.1-1.0", type=float)
 args = parser.parse_args()
-
+print(args)
 cfg="settings.yaml"
-if(args.config):
+if(args.config):t
     print("Selecting Config: " + args.config)
     cfg = args.config
 if(args.gpu):
