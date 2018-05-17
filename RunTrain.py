@@ -19,7 +19,7 @@ if(args.config):
     print("Selecting Config: " + args.config)
     cfg = args.config
 if(args.gpu):
-    print("Running GPU%:  "+args.gpu)
+    print("Running GPU%:  "+str(args.gpu))
     config = tf.ConfigProto()
     config.gpu_options.per_process_gpu_memory_fraction = args.gpu
     set_session(tf.Session(config=config))
