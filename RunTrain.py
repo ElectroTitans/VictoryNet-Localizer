@@ -58,8 +58,7 @@ datastoreCB = gcp.GCPDatastoreCheckpoint(key, model_cfg)
 
 tbCallBack = keras.callbacks.TensorBoard(
     log_dir='./Graph/'+model_name, 
-    histogram_freq=5,
-    write_grads=True,
+
     write_graph=True,
     batch_size=model_cfg["batch_size"])
 

@@ -1,7 +1,7 @@
 import keras
 from keras.models import load_model
 from keras.callbacks import ModelCheckpoint
-from keras.layers import Dense, Conv1D, Flatten, MaxPooling1D, Dropout, AveragePooling1D, Input, Add, Concatenate, SimpleRNN
+from keras.layers import Dense, Conv1D, Flatten, MaxPooling1D, Dropout, AveragePooling1D, Input, Add, Concatenate, SimpleRNN, GRU
 from keras.models import Model, Sequential, load_model
 from keras.optimizers import SGD
 from keras.utils import np_utils
@@ -52,7 +52,7 @@ def make_model(model_cfg, env_cfg):
                                 activation='relu',  
                                 name='lidar_conv3'
                             )(lidar_pooling2)
-    
+
         lidar_pooling3    = AveragePooling1D(
                                 pool_size=(2),  
                                 name='lidar_pooling3'
@@ -83,7 +83,7 @@ def make_model(model_cfg, env_cfg):
         coord_out         = Dense(2, 
                                 name='coord_out'
                             )(final_dense)
-        rnn               = SimpleRNN(32)(lidar_pooling2)
+
         model = Model(inputs=[lidar_input, imu_input], outputs=coord_out)
 
         print(model.summary())
