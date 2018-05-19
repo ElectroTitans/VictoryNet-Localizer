@@ -65,11 +65,11 @@ def set_dataset(task ,train_len, val_len, name="Dataset"):
 
 def validate_dataset(dataset_name):
     print("[LocalNet / GCP] Checking for dataset: " + dataset_name)
-    download_dataset(dataset_name)
+   
     if not os.path.exists( "./Data/" + dataset_name):
         print("Making Dataset Folder.")
-       
         os.makedirs( "./Data/"+ dataset_name)
+        download_dataset(dataset_name)
        
 
 def download_dataset(name): 

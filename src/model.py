@@ -19,14 +19,36 @@ def make_model(model_cfg, env_cfg):
                                 shape=(env_cfg['lineNum'],1), 
                                 name='lidar_input'
                             )
+        rnn               = SimpleRNN(
+                                32, 
+                                activation='tanh', 
+                                use_bias=True, 
+                                kernel_initializer='glorot_uniform', 
+                                recurrent_initializer='orthogonal', 
+                                bias_initializer='zeros', 
+                                kernel_regularizer=None, 
+                                recurrent_regularizer=None, 
+                                bias_regularizer=None, 
+                                activity_regularizer=None, 
+                                kernel_constraint=None, 
+                                recurrent_constraint=None, 
+                                bias_constraint=None, 
+                                dropout=0.0, 
+                                recurrent_dropout=0.0, 
+                                return_sequences=True, 
+                                return_state=False, 
+                                go_backwards=False, 
+                                stateful=False, 
+                                unroll=False,
 
+                            )(lidar_input)
         lidar_conv1       = Conv1D(
                                 model_cfg["conv1_filter"], 
                                 kernel_size=model_cfg["conv1_kernal"], 
                                 strides=(1),
                                 activation='relu', 
                                 name='lidar_conv1'
-                            )(lidar_input)
+                            )(rnn)
 
         lidar_pooling1    = AveragePooling1D(
                                 pool_size=(2), 
@@ -65,33 +87,12 @@ def make_model(model_cfg, env_cfg):
                                 name='final_dense'
                             )(combined_layer)
 
-        rnn               = SimpleRNN(
-                                32, 
-                                activation='tanh', 
-                                use_bias=True, 
-                                kernel_initializer='glorot_uniform', 
-                                recurrent_initializer='orthogonal', 
-                                bias_initializer='zeros', 
-                                kernel_regularizer=None, 
-                                recurrent_regularizer=None, 
-                                bias_regularizer=None, 
-                                activity_regularizer=None, 
-                                kernel_constraint=None, 
-                                recurrent_constraint=None, 
-                                bias_constraint=None, 
-                                dropout=0.0, 
-                                recurrent_dropout=0.0, 
-                                return_sequences=False, 
-                                return_state=False, 
-                                go_backwards=False, 
-                                stateful=False, 
-                                unroll=False
-                            )(final_dense)
+        
 
 
         coord_out         = Dense(2, 
                                 name='coord_out'
-                            )(rnn)
+                            )(final_dense)
 
         model = Model(inputs=[lidar_input, imu_input], outputs=coord_out)
 
