@@ -19,36 +19,14 @@ def make_model(model_cfg, env_cfg):
                                 shape=(env_cfg['lineNum'],1), 
                                 name='lidar_input'
                             )
-        rnn               = SimpleRNN(
-                                32, 
-                                activation='tanh', 
-                                use_bias=True, 
-                                kernel_initializer='glorot_uniform', 
-                                recurrent_initializer='orthogonal', 
-                                bias_initializer='zeros', 
-                                kernel_regularizer=None, 
-                                recurrent_regularizer=None, 
-                                bias_regularizer=None, 
-                                activity_regularizer=None, 
-                                kernel_constraint=None, 
-                                recurrent_constraint=None, 
-                                bias_constraint=None, 
-                                dropout=0.0, 
-                                recurrent_dropout=0.0, 
-                                return_sequences=True, 
-                                return_state=False, 
-                                go_backwards=False, 
-                                stateful=False, 
-                                unroll=False,
-
-                            )(lidar_input)
+        
         lidar_conv1       = Conv1D(
                                 model_cfg["conv1_filter"], 
                                 kernel_size=model_cfg["conv1_kernal"], 
                                 strides=(1),
                                 activation='relu', 
                                 name='lidar_conv1'
-                            )(rnn)
+                            )(lidar_input)
 
         lidar_pooling1    = AveragePooling1D(
                                 pool_size=(2), 
@@ -62,15 +40,27 @@ def make_model(model_cfg, env_cfg):
                                 activation='relu',  
                                 name='lidar_conv2'
                             )(lidar_pooling1)
-
+    
         lidar_pooling2    = AveragePooling1D(
                                 pool_size=(2),  
                                 name='lidar_pooling2'
                             )(lidar_conv2)
 
+        lidar_conv3       = Conv1D(
+                                model_cfg["conv3_filter"],
+                                kernel_size=model_cfg["conv3_kernal"], 
+                                activation='relu',  
+                                name='lidar_conv3'
+                            )(lidar_pooling2)
+    
+        lidar_pooling3    = AveragePooling1D(
+                                pool_size=(2),  
+                                name='lidar_pooling3'
+                            )(lidar_conv3)
+
         lidar_flatten     = Flatten( 
                                 name='lidar_flatten'
-                            )(lidar_pooling2)
+                            )(lidar_pooling3)
 
         imu_input         = Input(
                                 shape=(1,) ,
@@ -93,7 +83,7 @@ def make_model(model_cfg, env_cfg):
         coord_out         = Dense(2, 
                                 name='coord_out'
                             )(final_dense)
-
+        rnn               = SimpleRNN(32)(lidar_pooling2)
         model = Model(inputs=[lidar_input, imu_input], outputs=coord_out)
 
         print(model.summary())
