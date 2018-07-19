@@ -5,6 +5,7 @@ __pycache__/
 *.zip
 # C extensions
 *.so
+*.json
 Data/
 Graph/
 gcpkey.json
