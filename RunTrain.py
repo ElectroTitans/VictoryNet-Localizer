@@ -2,7 +2,7 @@ from src.config_loader import get_model_config, get_env_config, backup
 from src.data_loader import get_data, format_data
 from src.model import make_model
 from src import gcp
-
+from tensorflow.python.client import device_lib
 from keras.callbacks import ModelCheckpoint
 import keras
 import argparse
@@ -23,6 +23,9 @@ if(args.gpu):
     config = tf.ConfigProto()
     config.gpu_options.per_process_gpu_memory_fraction = args.gpu
     set_session(tf.Session(config=config))
+
+
+print(device_lib.list_local_devices())
 
 model_name, model_cfg = get_model_config(cfg)
 
@@ -58,7 +61,6 @@ datastoreCB = gcp.GCPDatastoreCheckpoint(key, model_cfg)
 
 tbCallBack = keras.callbacks.TensorBoard(
     log_dir='./Graph/'+model_name, 
-
     write_graph=True,
     batch_size=model_cfg["batch_size"])
 

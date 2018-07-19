@@ -1,7 +1,7 @@
 import keras
 from keras.models import load_model
 from keras.callbacks import ModelCheckpoint
-from keras.layers import Dense, Conv1D, Flatten, MaxPooling1D, Dropout, AveragePooling1D, Input, Add, Concatenate, SimpleRNN, GRU
+from keras.layers import Dense, Conv1D, Flatten, MaxPooling1D, Dropout, AveragePooling1D, Input, Add, Concatenate, SimpleRNN, GRU, LSTM
 from keras.models import Model, Sequential, load_model
 from keras.optimizers import SGD
 from keras.utils import np_utils
@@ -57,7 +57,7 @@ def make_model(model_cfg, env_cfg):
                                 pool_size=(2),  
                                 name='lidar_pooling3'
                             )(lidar_conv3)
-
+        
         lidar_flatten     = Flatten( 
                                 name='lidar_flatten'
                             )(lidar_pooling3)
@@ -66,24 +66,20 @@ def make_model(model_cfg, env_cfg):
                                 shape=(1,) ,
                                 name='imu_input'
                             )
-
         combined_layer    = Concatenate(
                                 name='combined_layer'
                             )([lidar_flatten, imu_input])
-
         final_dense       = Dense(
                                 model_cfg["fully_connected"], 
                                 activation='relu', 
                                 name='final_dense'
                             )(combined_layer)
 
-        
-
 
         coord_out         = Dense(2, 
                                 name='coord_out'
                             )(final_dense)
-
+        
         model = Model(inputs=[lidar_input, imu_input], outputs=coord_out)
 
         print(model.summary())
