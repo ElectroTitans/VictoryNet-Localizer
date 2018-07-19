@@ -1,1 +1,1 @@
-sudo CUDA_HOME=/usr/local/cuda GOOGLE_APPLICATION_CREDENTIALS=gcpkey.json python3 RunTrain.py --gpu=0.95
+sudo GOOGLE_APPLICATION_CREDENTIALS=gcpkey.json python3 RunTrain.py

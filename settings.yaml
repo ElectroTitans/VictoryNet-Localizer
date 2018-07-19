@@ -1,8 +1,8 @@
 model_version: v5
 model_edit: 04
 model_run: B
-model_desc: "Higher Learning Rate."
-dataset: LIDARDataGen_FRCPowerUp_01_D
+model_desc: "Higher Learning Rate"
+dataset: LIDARDataGen_FRCPowerUp_01_d
 learning_rate: 0.05
 batch_size: 32
 epoch: 30

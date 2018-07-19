@@ -194,7 +194,8 @@ class GCPDatastoreCheckpoint(keras.callbacks.Callback):
 gcp_checkpoint = GCPDatastoreCheckpoint(key)
 tbCallBack = keras.callbacks.TensorBoard(
     log_dir='./Graph/'+model_name, 
-    write_grads=False,
+    histogram_freq=5,
+    write_grads=True,
     write_graph=True,
     batch_size=cfg["batch_size"])
 
