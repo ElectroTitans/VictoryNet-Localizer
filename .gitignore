@@ -2,14 +2,12 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+*.zip
 # C extensions
 *.so
-# ML
+Data/
 Graph/
 gcpkey.json
-Data/
-*.zip
 # Distribution / packaging
 .Python
 env/
