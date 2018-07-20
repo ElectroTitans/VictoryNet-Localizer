@@ -1,11 +1,11 @@
 model_version: v5
-model_edit: 04
-model_run: B
-model_desc: "Higher Learning Rate"
-dataset: LIDARDataGen_FRCPowerUp_01_d
-learning_rate: 0.05
-batch_size: 32
-epoch: 30
+model_edit: 05
+model_run: C
+model_desc: "Higher Batch Size. (Score beating)"
+dataset: LIDARDataGen_FRCPowerUp_02_B
+learning_rate: 0.025
+batch_size: 128
+epoch: 75
 conv1_filter: 16
 conv2_filter: 32
 conv3_filter: 64

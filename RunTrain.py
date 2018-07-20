@@ -8,7 +8,9 @@ import keras
 import argparse
 import tensorflow as tf
 from keras.backend.tensorflow_backend import set_session
+from tensorflow.python.client import device_lib
 
+device_lib.list_local_devices()
 parser = argparse.ArgumentParser()
 parser.add_argument("--config", help="Config File to use",  nargs='?', const="settings.yaml")
 parser.add_argument("--gpu", help="GPU Usage 0.1-1.0", const=0.95, nargs='?',type=float)
