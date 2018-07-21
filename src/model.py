@@ -63,7 +63,7 @@ def make_model(model_cfg, env_cfg):
 
         lidar_flatten     = Flatten( 
                                 name='lidar_flatten'
-                            )(lidar_pooling4)
+                            )(lidar_pooling3)
 
         imu_input         = Input(
                                 shape=(1,) ,
