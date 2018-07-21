@@ -58,9 +58,21 @@ def make_model(model_cfg, env_cfg):
                                 name='lidar_pooling3'
                             )(lidar_conv3)
 
+	lidar_conv4       = Conv1D(
+                                model_cfg["conv4_filter"],
+                                kernel_size=model_cfg["conv4_kernal"], 
+                                activation='relu',  
+                                name='lidar_conv4'
+                            )(lidar_pooling3)
+
+        lidar_pooling4    = AveragePooling1D(
+                                pool_size=(2),  
+                                name='lidar_pooling4'
+                            )(lidar_conv4)
+
         lidar_flatten     = Flatten( 
                                 name='lidar_flatten'
-                            )(lidar_pooling3)
+                            )(lidar_pooling4)
 
         imu_input         = Input(
                                 shape=(1,) ,

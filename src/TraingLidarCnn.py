@@ -199,6 +199,7 @@ tbCallBack = keras.callbacks.TensorBoard(
     write_graph=True,
     batch_size=cfg["batch_size"])
 
+early_stop_cb = keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=1, mode='auto', baseline=None)
 
 task['info_status'] = "Training (first epoch)"
 datastore_client.put(task)
@@ -210,7 +211,7 @@ model.fit([x1_train, x2_train], y_train,
           verbose=1,
           shuffle=True,
           validation_data=([x1_test, x2_test], y_test),
-          callbacks=[checkpoint,gcp_checkpoint, tbCallBack])
+          callbacks=[checkpoint,gcp_checkpoint, tbCallBack, early_stop_cb])
 
 
 score = model.evaluate([x1_test, x2_test], y_test, verbose=1)
