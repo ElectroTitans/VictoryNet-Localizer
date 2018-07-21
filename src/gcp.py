@@ -111,7 +111,7 @@ class GCPDatastoreCheckpoint(keras.callbacks.Callback):
         datastore_client.put(self.task)
         print('Updated to GCP Datastore{}'.format(self.task.key))
         
-        upload_blob("victorynet-models", self.cfg["filepath_weights"], self.cfg["model_name"] + "_trained_"+str(logs.get('loss'))+".hdf5")
+        upload_blob("victorynet-models", self.cfg["filepath_weights"], self.cfg["model_name"] + "_trained.hdf5")
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
     """Uploads a file to the bucket."""

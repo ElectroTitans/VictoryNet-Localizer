@@ -1,11 +1,11 @@
 model_version: v5
-model_edit: 05
-model_run: C
-model_desc: "Higher Batch Size. (Score beating)"
-dataset: LIDARDataGen_FRCPowerUp_02_B
+model_edit: 06
+model_run: A
+model_desc: "BatchNormalization. New large dataset. EarlyStop."
+dataset: LIDARDataGen_FRCPowerUp_03_A
 learning_rate: 0.025
-batch_size: 128
-epoch: 75
+batch_size: 32
+epoch: 50
 conv1_filter: 16
 conv2_filter: 32
 conv3_filter: 64
