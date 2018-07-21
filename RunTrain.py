@@ -74,7 +74,7 @@ model.fit([x1_train, x2_train], y_train,
           verbose=1,
           shuffle=True,
           validation_data=([x1_test, x2_test], y_test),
-          callbacks=[checkpoint,datastoreCB, tbCallBack, early_stop_cb])
+          callbacks=[checkpoint,datastoreCB, tbCallBack])
 
 gcp.set_status(key, "Evalulating")
 score = model.evaluate([x1_test, x2_test], y_test, verbose=1)
