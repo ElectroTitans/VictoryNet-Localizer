@@ -66,7 +66,7 @@ tbCallBack = keras.callbacks.TensorBoard(
 
 gcp.set_status(key, "Training First Epoch")
 
-early_stop_cb = keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=1, mode='auto', baseline=None)
+# early_stop_cb = keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=0, verbose=1, mode='auto', baseline=None)
 
 model.fit([x1_train, x2_train], y_train,
           batch_size=model_cfg["batch_size"],

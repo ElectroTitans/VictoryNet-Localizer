@@ -79,13 +79,13 @@ def make_model(model_cfg, env_cfg):
                                 activation='relu', 
                                 name='final_dense'
                             )(combined_layer)
-
+        final_batch       = BatchNormalization(name='final_batch')(final_dense)
         
 
 
         coord_out         = Dense(2, 
                                 name='coord_out'
-                            )(final_dense)
+                            )(final_batch)
 
         model = Model(inputs=[lidar_input, imu_input], outputs=coord_out)
 
