@@ -3,16 +3,16 @@ model_edit: 06
 model_run: B
 model_desc: "Batch final layer."
 dataset: LIDARDataGen_FRCPowerUp_02_C
-learning_rate: 0.025
+learning_rate: 0.02
 batch_size: 32
 epoch: 50
 conv1_filter: 16
 conv2_filter: 32
 conv3_filter: 64
 # conv4_filter: 128
-conv1_kernal: 9
-conv2_kernal: 7
-conv3_kernal: 5
+conv1_kernal: 7
+conv2_kernal: 5
+conv3_kernal: 3
 # conv4_kernal: 3
 fully_connected: 128
 load: False
