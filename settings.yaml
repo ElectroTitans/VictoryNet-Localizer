@@ -1,8 +1,8 @@
 model_version: v5
 model_edit: 06
 model_run: B
-model_desc: "Batch final layer."
-dataset: LIDARDataGen_FRCPowerUp_02_C
+model_desc: "Remove Batch. New Dataset"
+dataset: LIDARDataGen_FRCPowerUp_03_A
 learning_rate: 0.02
 batch_size: 32
 epoch: 50

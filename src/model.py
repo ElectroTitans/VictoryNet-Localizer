@@ -27,12 +27,14 @@ def make_model(model_cfg, env_cfg):
                                 activation='relu', 
                                 name='lidar_conv1'
                             )(lidar_input)
-        lidar_batch1      = BatchNormalization(name='lidar_batch1')(lidar_conv1)
+
+        # lidar_batch1      = BatchNormalization(name='lidar_batch1')(lidar_conv1)
+
         lidar_pooling1    = AveragePooling1D(
                                 pool_size=(2), 
                                 strides=(2),  
                                 name='lidar_pooling1'
-                            )(lidar_batch1)
+                            )(lidar_conv1)
 
         lidar_conv2       = Conv1D(
                                 model_cfg["conv2_filter"],
@@ -40,11 +42,11 @@ def make_model(model_cfg, env_cfg):
                                 activation='relu',  
                                 name='lidar_conv2'
                             )(lidar_pooling1)
-        lidar_batch2      = BatchNormalization(name='lidar_batch2')(lidar_conv2)
+        # lidar_batch2      = BatchNormalization(name='lidar_batch2')(lidar_conv2)
         lidar_pooling2    = AveragePooling1D(
                                 pool_size=(2),  
                                 name='lidar_pooling2'
-                            )(lidar_batch2)
+                            )(lidar_conv2)
 
         lidar_conv3       = Conv1D(
                                 model_cfg["conv3_filter"],
@@ -53,12 +55,12 @@ def make_model(model_cfg, env_cfg):
                                 name='lidar_conv3'
                             )(lidar_pooling2)
 
-        lidar_batch3      = BatchNormalization(name='lidar_batch3')(lidar_conv3)
+        # lidar_batch3      = BatchNormalization(name='lidar_batch3')(lidar_conv3)
 
         lidar_pooling3    = AveragePooling1D(
                                 pool_size=(2),  
                                 name='lidar_pooling3'
-                            )(lidar_batch3)
+                            )(lidar_conv3)
 
 
         lidar_flatten     = Flatten( 
@@ -79,16 +81,16 @@ def make_model(model_cfg, env_cfg):
                                 activation='relu', 
                                 name='final_dense'
                             )(combined_layer)
-        final_batch       = BatchNormalization(name='final_batch')(final_dense)
+        # final_batch       = BatchNormalization(name='final_batch')(final_dense)
     
 
         coord_out         = Dense(2, 
                                 name='coord_out'
-                            )(final_batch)
+                            )(final_dense)
 
-        out_batch       = BatchNormalization(name='out_batch')(coord_out)
+        # out_batch       = BatchNormalization(name='out_batch')(coord_out)
 
-        model = Model(inputs=[lidar_input, imu_input], outputs=out_batch)
+        model = Model(inputs=[lidar_input, imu_input], outputs=coord_out)
 
         print(model.summary())
         print("[LocalNet / Model] Compliling Model")
